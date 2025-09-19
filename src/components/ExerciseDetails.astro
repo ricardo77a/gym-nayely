@@ -16,14 +16,14 @@ interface Props {
 
 const { name, day, routine, sets, reps, rest, muscles_worked, description, tips, grip, image, video } = Astro.props;
 ---
-    <h1 class="text-3xl font-bold mb-2 text-white">{name}</h1>
-    <p class="text-gray-300 mb-6">
+    <h1 class="text-3xl font-bold mb-2 text-rosa-custom-900">{name}</h1>
+    <p class="text-rosa-custom-700 mb-6">
         Este ejercicio forma parte de la rutina de {day} ({routine}).
     </p>
 
     <!-- Sección: Detalles del Ejercicio -->
-    <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer p-4 mb-4 shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">Detalles del Ejercicio</h2>
+    <div class="bg-white text-rosa-custom-900 border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:bg-rosa-custom-50 hover:border-rosa-custom-300 cursor-pointer p-4 mb-4 shadow-md hover:shadow-lg transition-all duration-300">
+        <h2 class="text-2xl font-semibold mb-2 text-rosa-custom-800">Detalles del Ejercicio</h2>
         <p>
             <strong>Sets:</strong> {sets}<br />
             <strong>Reps:</strong> {reps}<br />
@@ -33,15 +33,15 @@ const { name, day, routine, sets, reps, rest, muscles_worked, description, tips,
     </div>
 
     <!-- Sección: Descripción -->
-    <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer p-4 mb-4 shadow-md">
-        <h2 class="text-2xl font-semibold mb-2">Descripción</h2>
+    <div class="bg-white text-rosa-custom-900 border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:bg-rosa-custom-50 hover:border-rosa-custom-300 cursor-pointer p-4 mb-4 shadow-md hover:shadow-lg transition-all duration-300">
+        <h2 class="text-2xl font-semibold mb-2 text-rosa-custom-800">Descripción</h2>
         <p>{description}</p>
     </div>
 
     <!-- Sección: Tips -->
     {tips && tips.length > 0 && (
-        <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer p-4 mb-4 shadow-md">
-            <h2 class="text-2xl font-semibold mb-2">Tips</h2>
+        <div class="bg-white text-rosa-custom-900 border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:bg-rosa-custom-50 hover:border-rosa-custom-300 cursor-pointer p-4 mb-4 shadow-md hover:shadow-lg transition-all duration-300">
+            <h2 class="text-2xl font-semibold mb-2 text-rosa-custom-800">Tips</h2>
             <ul class="list-disc pl-5">
                 {tips.map((tip) => (
                     <li>{tip}</li>
@@ -52,8 +52,8 @@ const { name, day, routine, sets, reps, rest, muscles_worked, description, tips,
 
     <!-- Sección: Grip -->
     {grip && grip.length > 0 && (
-        <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer p-4 mb-4 shadow-md">
-            <h2 class="text-2xl font-semibold mb-2">Ejecución</h2>
+        <div class="bg-white text-rosa-custom-900 border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:bg-rosa-custom-50 hover:border-rosa-custom-300 cursor-pointer p-4 mb-4 shadow-md hover:shadow-lg transition-all duration-300">
+            <h2 class="text-2xl font-semibold mb-2 text-rosa-custom-800">Ejecución</h2>
             <ul class="list-disc pl-5">
                 {grip.map((g) => (
                     <li>{g}</li>
@@ -64,14 +64,14 @@ const { name, day, routine, sets, reps, rest, muscles_worked, description, tips,
 
     <!-- Sección: Imagen -->
     {image && (
-        <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer mb-4 shadow-md">
+        <div class="bg-white border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:border-rosa-custom-300 cursor-pointer mb-4 shadow-md hover:shadow-lg transition-all duration-300">
             <img src={image} alt={name} class="w-full rounded-lg" />
         </div>
     )}
 
     <!-- Seccion: video -->
     {video && (
-        <div class="bg-gray-800 text-white border border-gray-700 rounded-lg flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer mb-4 shadow-md">
+        <div class="bg-white border border-rosa-custom-200 rounded-lg flex flex-col h-full hover:border-rosa-custom-300 cursor-pointer mb-4 shadow-md hover:shadow-lg transition-all duration-300">
             <video controls class="w-full rounded-lg">
                 <source src={video} type="video/mp4" />
                 Your browser does not support the video tag.
@@ -81,7 +81,7 @@ const { name, day, routine, sets, reps, rest, muscles_worked, description, tips,
 
     <!-- Botón para regresar al día -->
     <div class="mt-6">
-        <a href={`/rutina/${day.toLowerCase()}`} class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg">
+        <a href={`/rutina/${day.toLowerCase()}`} class="bg-rosa-custom-500 hover:bg-rosa-custom-600 text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
             Regresar a {day}
         </a>
     </div>
