@@ -25,10 +25,100 @@ import { ViewTransitions } from 'astro:transitions';
 		<main class="container mx-auto py-12 px-4 pt-20 md:pt-20 text-rosa-custom-900">
 			<slot />
 		</main>
+
+		<script>
+			// Script para mejorar las transiciones de página
+			let isNavigatingBack = false;
+
+			// Detectar navegación hacia atrás usando el evento popstate
+			window.addEventListener('popstate', () => {
+				isNavigatingBack = true;
+			});
+
+			// Resetear flag después de la transición
+			document.addEventListener('astro:after-swap', () => {
+				isNavigatingBack = false;
+			});
+
+			// Aplicar clase CSS basada en dirección de navegación
+			document.addEventListener('astro:before-preparation', () => {
+				if (isNavigatingBack) {
+					document.documentElement.setAttribute('data-direction', 'back');
+				} else {
+					document.documentElement.setAttribute('data-direction', 'forward');
+				}
+			});
+		</script>
 	</body>
 </html>
 <style is:global>
 	html{
 		margin: 0;
+	}
+
+	/* Transiciones personalizadas - deslizamiento lateral */
+
+	/* Navegación hacia adelante (por defecto) */
+	::view-transition-old(root) {
+		animation: slide-out-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	::view-transition-new(root) {
+		animation: slide-in-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	/* Navegación hacia atrás */
+	html[data-direction="back"] ::view-transition-old(root) {
+		animation: slide-out-right 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	html[data-direction="back"] ::view-transition-new(root) {
+		animation: slide-in-left 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+	}
+
+	/* Keyframes para deslizamiento hacia la izquierda */
+	@keyframes slide-out-left {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(-100%);
+		}
+	}
+
+	@keyframes slide-in-right {
+		from {
+			transform: translateX(100%);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+
+	/* Keyframes para deslizamiento hacia la derecha */
+	@keyframes slide-out-right {
+		from {
+			transform: translateX(0);
+		}
+		to {
+			transform: translateX(100%);
+		}
+	}
+
+	@keyframes slide-in-left {
+		from {
+			transform: translateX(-100%);
+		}
+		to {
+			transform: translateX(0);
+		}
+	}
+
+	/* Fallback para navegadores que no soporten view transitions */
+	@media (prefers-reduced-motion: reduce) {
+		::view-transition-old(root),
+		::view-transition-new(root) {
+			animation: none;
+		}
 	}
 </style>
