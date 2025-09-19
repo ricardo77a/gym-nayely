@@ -1,12 +1,10 @@
 ---
-const daysOfWeek = [
-    { day: "Lunes", slug: "lunes" },
-    { day: "Martes", slug: "martes" },
-    { day: "Miercoles", slug: "miercoles" },
-    { day: "Jueves", slug: "jueves" },
-    { day: "Viernes", slug: "viernes" },
-    { day: "Sabado", slug: "sabado" },
-];
+import { routines } from "../data/routines";
+
+const daysOfWeek = Object.keys(routines).map((key) => ({
+    day: routines[key].day,
+    slug: routines[key].slug,
+}));
 ---
 
 <header class="fixed top-0 left-0 w-full z-50 shadow-md">
@@ -15,7 +13,15 @@ const daysOfWeek = [
             class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4"
         >
             <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" class="w-10 fill-rosa-custom-700 hover:fill-rosa-custom-800"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M96 64c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 160 0 64 0 160c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-64-32 0c-17.7 0-32-14.3-32-32l0-64c-17.7 0-32-14.3-32-32s14.3-32 32-32l0-64c0-17.7 14.3-32 32-32l32 0 0-64zm448 0l0 64 32 0c17.7 0 32 14.3 32 32l0 64c17.7 0 32 14.3 32 32s-14.3 32-32 32l0 64c0 17.7-14.3 32-32 32l-32 0 0 64c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-160 0-64 0-160c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32zM416 224l0 64-192 0 0-64 192 0z"/></svg>
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 640 512"
+                    class="w-10 fill-rosa-custom-700 hover:fill-rosa-custom-800"
+                    ><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                    <path
+                        d="M96 64c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32l0 160 0 64 0 160c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-64-32 0c-17.7 0-32-14.3-32-32l0-64c-17.7 0-32-14.3-32-32s14.3-32 32-32l0-64c0-17.7 14.3-32 32-32l32 0 0-64zm448 0l0 64 32 0c17.7 0 32 14.3 32 32l0 64c17.7 0 32 14.3 32 32s-14.3 32-32 32l0 64c0 17.7-14.3 32-32 32l-32 0 0 64c0 17.7-14.3 32-32 32l-32 0c-17.7 0-32-14.3-32-32l0-160 0-64 0-160c0-17.7 14.3-32 32-32l32 0c17.7 0 32 14.3 32 32zM416 224l0 64-192 0 0-64 192 0z"
+                    ></path></svg
+                >
             </a>
             <button
                 id="menu-toggle"
@@ -37,24 +43,26 @@ const daysOfWeek = [
                         stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M1 1h15M1 7h15M1 13h15"
-                    ></path>
+                        d="M1 1h15M1 7h15M1 13h15"></path>
                 </svg>
             </button>
             <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                 <ul
                     class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-rosa-custom-200 rounded-lg bg-rosa-custom-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white"
                 >
-                    {daysOfWeek.map(({ day, slug }) => (
-                        <li>
-                            <a
-                                href={`/rutina/${slug}`}
-                                class="block py-2 px-3 text-rosa-custom-700 rounded hover:bg-rosa-custom-100 md:hover:bg-transparent md:border-0 md:hover:text-rosa-custom-800 md:p-0"
-                            >
-                                {day}
-                            </a>
-                        </li>
-                    ))}
+                    {
+                        daysOfWeek.map(({ day, slug }) => (
+                            <li>
+                                <a
+                                    href={`/rutina/${slug}`}
+                                    class="block py-2 px-3 text-rosa-custom-700 rounded hover:bg-rosa-custom-100 md:hover:bg-transparent md:border-0 md:hover:text-rosa-custom-800 md:p-0"
+                                >
+                                    {day}
+                                </a>
+                            </li>
+                        ))
+                    }
+                    <!--
                     <li>
                         <a
                             href={'/dieta'}
@@ -63,6 +71,7 @@ const daysOfWeek = [
                             Dieta
                         </a>
                     </li>
+                    -->
                 </ul>
             </div>
         </div>
@@ -82,8 +91,8 @@ const daysOfWeek = [
     }
 
     // Ejecutar el script cuando el DOM esté listo
-    document.addEventListener('DOMContentLoaded', toggleMenu);
+    document.addEventListener("DOMContentLoaded", toggleMenu);
 
     // Ejecutar el script después de una transición de vista (si usas ViewTransitions)
-    document.addEventListener('astro:after-swap', toggleMenu);
+    document.addEventListener("astro:after-swap", toggleMenu);
 </script>
