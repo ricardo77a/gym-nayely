@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { dieta } from "../../data/dieta";
+
+---
+
+<Layout title='Dieta'>
+    <section class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white">Dieta semanal</h1>
+        <p class="mt-4 text-gray-300" style="text-wrap: balance;">
+            Sigue nuestra dieta semanal diseñada para complementar tu rutina de ejercicios y ayudarte a alcanzar tus metas de salud y fitness. Cada día incluye comidas balanceadas y prácticas, ideales para optimizar tu rendimiento en el gimnasio y mejorar tu bienestar general. ¡Adapta cada
+        </p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {Object.entries(dieta).map(([key, { comida, detalles }]) => (
+            <div class="bg-gray-800 text-white border border-gray-700 rounded-lg shadow-lg p-6 flex flex-col h-full hover:bg-gray-700 hover:border-gray-600 cursor-pointer">
+                <h2 class="text-2xl font-semibold mb-4">{comida}</h2>
+                {detalles.map(({ titulo, items }) => (
+                    <div class="mb-4">
+                        <h3 class="text-xl text-gray-100 font-bold mb-2">{titulo}</h3>
+                        <ul class="text-gray-300 space-y-1">
+                            {items.map((item) => (
+                                <li>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+                ))}
+            </div>
+        ))}
+    </section>
+
+</Layout>

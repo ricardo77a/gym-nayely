@@ -1,0 +1,49 @@
+---
+import { routines } from '../../../data/routines';
+import ExerciseDetails from '../../../components/ExerciseDetails.astro';
+import Layout from '../../../layouts/Layout.astro';
+
+const { day, exercise } = Astro.params as { day: string; exercise: string };
+
+// Obtener la rutina correspondiente
+const routine = routines[day.toLowerCase()];
+
+// Encontrar el ejercicio específico
+const selectedExercise = routine?.exercises.find(
+    (ex) => ex.slug === exercise.toLowerCase()
+);
+
+if (!selectedExercise) {
+    throw new Error(`Ejercicio ${exercise} no encontrado para el día ${day}`);
+}
+
+// Definir la función getStaticPaths
+export async function getStaticPaths() {
+    // Crear una lista de rutas para cada combinación de día y ejercicio
+    return Object.keys(routines).flatMap((day) => {
+        return routines[day].exercises.map((exercise) => ({
+            params: {
+                day,
+                exercise: exercise.slug,
+            },
+        }));
+    });
+}
+---
+
+<Layout title={selectedExercise.name}>
+    <ExerciseDetails
+        name={selectedExercise.name}
+        day={day}
+        routine={routine.routine}
+        sets={selectedExercise.sets}
+        reps={selectedExercise.reps}
+        rest={selectedExercise.rest}
+        muscles_worked={selectedExercise.muscles_worked}
+        description={selectedExercise.description}
+        tips={selectedExercise.tips}
+        grip={selectedExercise.grip}
+        image={selectedExercise.image}
+        video={selectedExercise.video}
+    />
+</Layout>

@@ -1,0 +1,32 @@
+---
+import Layout from "../layouts/Layout.astro";
+import DayCard from "../components/DayCard.astro";
+import { routines } from "../data/routines"; // Asegúrate de importar las rutinas
+import "../styles/global.css";
+
+const days = Object.keys(routines).map((key) => ({
+    day: routines[key].day,
+    routine: routines[key].routine,
+    description: routines[key].description,
+    slug: routines[key].slug,
+}));
+---
+
+<Layout title="Rutina Semanal">
+    <section class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-white">Rutina Semanal</h1>
+        <p class="mt-4 text-gray-300" style="text-wrap: balance;">
+            Este programa está diseñado para ayudarte a desarrollar fuerza y
+            músculo de manera equilibrada, con días dedicados a distintos grupos
+            musculares y un enfoque específico en ejercicios compuestos.
+        </p>
+    </section>
+
+    <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {days.map((day) => (
+            <a href={`/rutina/${day.slug}`}>
+                <DayCard day={day.day} routine={day.routine} description={day.description} />
+            </a>
+        ))}
+    </section>
+</Layout>

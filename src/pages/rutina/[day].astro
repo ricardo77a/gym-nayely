@@ -1,0 +1,31 @@
+---
+import DayRoutine from "../../components/DayRoutine.astro";
+import type { Routine } from "../../data/routines";
+import { routines } from "../../data/routines";
+import Layout from "../../layouts/Layout.astro";
+
+// Obtener el parámetro del día
+const { day } = Astro.params as { day: string };
+
+// Verificar si existe la rutina para el día solicitado
+const routine: Routine = routines[day.toLowerCase()];
+if (!routine) {
+    throw new Error(`Rutina para ${day} no encontrada`);
+}
+
+// Exportar la función getStaticPaths
+export async function getStaticPaths() {
+    return Object.keys(routines).map((key) => ({
+        params: { day: key },
+    }));
+}
+---
+
+<Layout title={`Rutina de ${routine.day}`}>
+    <DayRoutine
+        day={routine.day}
+        routine={routine.routine}
+        description={routine.description}
+        exercises={routine.exercises}
+    />
+</Layout>
